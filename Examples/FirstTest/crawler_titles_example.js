@@ -9,7 +9,7 @@ require("mongodb").MongoClient.connect(dburl, function(err,db){
 		return;
 	}
 
-var roll=db.collection("roll");
+var roll=db.collection("roll_test");
 // http://www.nyartbeat.com/list/event_opening
 var getTypeWords=function(txt){
 	var re=new RegExp("([a-zA-Z]{3,})","igm");
