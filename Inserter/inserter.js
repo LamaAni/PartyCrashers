@@ -39,12 +39,25 @@ Inserter.prototype={
 
 		// we have events;
 		var dbEvent={
-			Name:ev.Name,
-			Venue:ev.Venue==null?"":ev.Venue.trim(),
-			Address:ev.Address.trim(),
-			Start:startTimestap,
-			End:endTimestamp,
-			Area:ev.Area,
+			type: "Feature",
+			id: "123",
+			properties: {
+				TEL: "5551212"
+				NAME:ev.Name,
+				Venue:ev.Venue==null?"":ev.Venue.trim(),
+				ADRESS1:ev.Address.trim(),
+				CITY: "New York",
+				ZIP: "10001",
+				URL: "http://www.google.com",
+				START:startTimestap,
+				END:endTimestamp,
+				AREA:ev.Area
+				};
+			"geometry": {
+					"type": "Point",
+					"coordinates": [-73.947298, 40.833854]
+				     }
+			};
 		}
 
 		// var key=dbEvent.Name+"_"+dbEvent.Venue+"_"+dbEvent.Start.toString();
