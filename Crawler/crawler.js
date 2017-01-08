@@ -12,6 +12,12 @@ var PartyCrawler=function(){
 			console.log("Crawled website that dose not match a callback.");
 		},
 	});
+
+	var me=this;
+	this.Crawler.on('drain',function(){
+		if(me.CrawlSequenceComplete!=null)
+			me.CrawlSequenceComplete();
+	});
 }
 
 PartyCrawler.prototype={
@@ -27,16 +33,21 @@ PartyCrawler.prototype={
 		}
 		else
 		{
+			
 			var webaddress=URL.parse(url).hostname;
 			if (webaddress.substring(0, 3)=='www')
+			{
 				webaddress=webaddress.substring(4);
+			}
+			console.log("Adding website for "+webaddress+"..")
 			if(this.WebsiteObjects[webaddress]==null)
 			{
 				try
 				{
 					var wo=require("./Specialized/"+webaddress+".js");
+					wo.hostname=webaddress;
+					//console.log(wo);
 					this.WebsiteObjects[webaddress]=wo;
-					this.WebsiteObjects[webaddress].hostname=webaddress;
 				}
 				catch(e)
 				{
@@ -74,10 +85,13 @@ PartyCrawler.prototype={
 
 		// collecting base crawl objects.
 		var cobjs=[];
-		for(var hostname in this.WebsiteObjects)
+		var keys=Object.keys(this.WebsiteObjects);
+		console.log(this.WebsiteObjects);
+		for(var i=0;i<keys.length;i++)
 		{
+			var hostname=keys[i];
 			console.log("Preparing crawl for "+this.WebsiteObjects[hostname].hostname+"...");
-			console.log(this.WebsiteObjects[hostname]);
+			//console.log(this.WebsiteObjects[hostname]);
 			cobjs.push(this.WebsiteObjects[hostname].MakeCrawls(this));
 		}
 
@@ -111,8 +125,12 @@ PartyCrawler.prototype={
 		}
 		else if(crawls.length==0)
 			return;
+
 		this.Crawler.queue(crawls);
 		console.log("Pushed "+crawls.length+" crawls to queue.");
+	},
+	CrawlSequenceComplete:function(){
+		console.log("Crawl sequence complete.");
 	}
 };
 

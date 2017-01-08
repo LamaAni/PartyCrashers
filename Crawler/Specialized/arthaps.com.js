@@ -54,7 +54,7 @@ wc.CrawlForPages=function(crawler,curIdx,date){
 			}
 	    }
 	};
-	console.log("Checking for pages in arthaps.com, idx:"+curIdx+", url:"+crawlURL);
+	//console.log("Checking for pages in arthaps.com, idx:"+curIdx+", url:"+crawlURL);
 	crawler.Queue(pageNumberCrawl);
 }
 
