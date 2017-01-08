@@ -68,7 +68,7 @@ var nyartbeatCrawler=new Crawler({
 
 		event_boxes.each(function(idx,el){
 			jqel=$(el).parent();
-			// parse data here. 
+			// parse data here.
 			var ev=collectEvent($,jqel);
 			//events.push(collectEvent($(event_boxes[i]));
 			events.push(ev);
