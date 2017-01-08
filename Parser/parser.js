@@ -9,14 +9,7 @@ Parser.protoype={
 		var webaddress=URL.parse(url).hostname;
 		return require("/Sepcialized/"+webaddress+".js");
 	},
-	ParserBase:function() {
-		return {
-			ParseEvents:function($)
-			{
 
-			}
-		};
-	}
 }
 
 module.exports=Parser;
