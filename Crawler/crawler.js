@@ -17,7 +17,7 @@ var PartyCrawler=function(){
 PartyCrawler.prototype={
 	// Makes the website object/s for the sepcific urls.
 	AddWebsite:function(url){
-		if(url.isArray())
+		if(Array.isArray(url))
 		{
 			// check if array, if so go over all websites.
 			for(var i=0;i<url.length;i++)
@@ -30,24 +30,29 @@ PartyCrawler.prototype={
 			var webaddress=URL.parse(url).hostname;
 			if (webaddress.substring(0, 3)=='www')
 				webaddress=webaddress.substring(4);
-			if(this.WebsiteObjects[webaddress]==null){
-				try{
-					var wo=require("Specialized/"+webaddress+".js");
+			if(this.WebsiteObjects[webaddress]==null)
+			{
+				try
+				{
+					var wo=require("./Specialized/"+webaddress+".js");
 					this.WebsiteObjects[webaddress]=wo;
+					this.WebsiteObjects[webaddress].hostname=webaddress;
 				}
-				catch{
+				catch(e)
+				{
 					console.log("Website crawler for "+ webaddress +" not found.");
 				}
 			}
 		}
 	},
 	IsStopped:function(){
-		return this.LastCrawlStop.getTime()>this.LastCrawlStarted.getTime():
+		return this.LastCrawlStop.getTime()>this.LastCrawlStarted.getTime();
 	},
 	Stop:function(){
 		this.LastCrawlStop=new Date();
 	},
-	CrawlInterval:function(){
+	CrawlInterval:function()
+	{
 		// calls the crawl interval if finished last.
 		if(this.IsIntervalWorking)
 		{
@@ -63,21 +68,25 @@ PartyCrawler.prototype={
 		// check if need to stop everything.
 		if(this.IsStopped)
 		{
-			try{clearInterval(this.CrawlIntervalIndex)}catch{}
+			try{clearInterval(this.CrawlIntervalIndex)}catch(e){}
 			this.CrawlIntervalIndex=null;
 		}
 
 		// collecting base crawl objects.
 		var cobjs=[];
-		for(var i=0;i<this.WebsiteObjects.length;i++)
+		for(var hostname in this.WebsiteObjects)
 		{
-			cobjs.push(this.WebsiteObjects[i].MakeCrawls());
+			console.log("Preparing crawl for "+this.WebsiteObjects[hostname].hostname+"...");
+			console.log(this.WebsiteObjects[hostname]);
+			cobjs.push(this.WebsiteObjects[hostname].MakeCrawls(this));
 		}
 
-		this.Crawler.queue(cobjs);
-	}
+		this.Queue(cobjs);
+		// console.log("Pushing "+cobjs.length+" crawls");
+		// this.Crawler.queue(cobjs);
+	},
 	// Initializes the crawl interval.
-	Crawl:function()
+	Crawl:function(doInterval)
 	{
 		if(this.CrawlIntervalIndex!=null)
 			return;
@@ -85,11 +94,25 @@ PartyCrawler.prototype={
 		this.IsIntervalWorking=false;
 		this.LastCrawlStarted=new Date();
 
-		var me=this;
-		setInterval(function(){me.CrawlInterval();},this.IntervalTime);
+		if(doInterval)
+		{
+			var me=this;
+			setInterval(function(){me.CrawlInterval();},this.IntervalTime);	
+		}
+		else this.CrawlInterval();
 	},
 	CrawlResult:function(rslt){
-
+		console.log("crawl result returned");		
+	},
+	Queue:function(crawls){
+		if(!Array.isArray(crawls))
+		{
+			crawls=[crawls];
+		}
+		else if(crawls.length==0)
+			return;
+		this.Crawler.queue(crawls);
+		console.log("Pushed "+crawls.length+" crawls to queue.");
 	}
 };
 
