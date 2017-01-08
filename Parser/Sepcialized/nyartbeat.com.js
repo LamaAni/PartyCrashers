@@ -23,7 +23,7 @@ Parser.CollectEvent=function($,query)
 	event.Area=event.values[i].substring(7);i=i+1;
 	event.Address=event.values[i].substring(5);i=i+1;
 	//event.Theme=this.GetTypeWords(event.values[i]);i=i+1;
-	event.Time=this.GetDateAndTime(event.values[i]);i=i+1;
+	event.DateAndTime=this.GetDateAndTime(event.values[i]);i=i+1;
 	return event;
 };
 Parser.ParseEvents=function($)

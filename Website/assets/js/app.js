@@ -239,7 +239,17 @@ var theaters = L.geoJson(null, {
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Event Name</th><td>" + feature.properties.NAME + "</td></tr>" + "<tr><th>Phone</th><td>" + feature.properties.TEL + "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADDRESS1 + "</td></tr>" + "<tr><th>Website</th><td><a class='url-break' href='" + feature.properties.URL + "' target='_blank'>" + feature.properties.URL + "</a></td></tr>" + "<tr><th>Rating</th><td>" + "⭐⭐⭐⭐⭐" + "<tr><th>Food</th><td>" + "☑️" + "<tr><th>Wine</th><td>" + "☑️" + "<tr><th>Beer</th><td>" + "☑️" + "<tr><th>Cocktails</th><td>" + "☑️" + "<table>";
+      var time=(new Date()).toString();
+      var content = 
+        "<table class='table table-striped table-bordered table-condensed'>" + 
+        "<tr><th>Event Name</th><td>" + feature.properties.NAME + 
+        "</td></tr>" + "<tr><th>Phone</th><td>" + feature.properties.TEL + 
+        "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADDRESS1 + 
+        "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADDRESS1 + 
+        "</td></tr>" + "<tr><th>At</th><td>" + time + 
+        "</td></tr>" + "<tr><th>Website</th><td><a class='url-break' href='" + feature.properties.URL + "' target='_blank'>" + feature.properties.URL + "</a></td></tr>" + 
+        "<tr><th>Rating</th><td>" + "⭐⭐⭐⭐⭐" + "<tr><th>Food</th><td>" + "☑️" + "<tr><th>Wine</th><td>" 
+        + "☑️" + "<tr><th>Beer</th><td>" + "☑️" + "<tr><th>Cocktails</th><td>" + "☑️" + "<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.NAME);
@@ -284,7 +294,18 @@ var museums = L.geoJson(null, {
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Name</th><td>" + feature.properties.NAME + "</td></tr>" + "<tr><th>Phone</th><td>" + feature.properties.TEL + "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADRESS1 + "</td></tr>" + "<tr><th>Website</th><td><a class='url-break' href='" + feature.properties.URL + "' target='_blank'>" + feature.properties.URL + "</a></td></tr>" +  + feature.properties.URL + "</a></td></tr>" + "<table>";
+      var time=(new Date()).toString();
+      //var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Name</th><td>" + feature.properties.NAME + "</td></tr>" + "<tr><th>Phone</th><td>" + feature.properties.TEL + "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADRESS1 + "</td></tr>" + "<tr><th>Website</th><td><a class='url-break' href='" + feature.properties.URL + "' target='_blank'>" + feature.properties.URL + "</a></td></tr>" +  + feature.properties.URL + "</a></td></tr>" + "<table>";
+      var content = 
+        "<table class='table table-striped table-bordered table-condensed'>" + 
+        "<tr><th>Event Name</th><td>" + feature.properties.NAME + 
+        "<tr><th>Venue</th><td>" + feature.properties.Venue + 
+        "</td></tr>" + "<tr><th>Phone</th><td>" + feature.properties.TEL + 
+        "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADDRESS1 + 
+        "</td></tr>" + "<tr><th>At</th><td>" + time + 
+        "</td></tr>" + "<tr><th>Website</th><td><a class='url-break' href='" + feature.properties.URL + "' target='_blank'>" + feature.properties.URL + "</a></td></tr>" + 
+        "<tr><th>Rating</th><td>" + "⭐⭐⭐⭐⭐" + "<tr><th>Food</th><td>" + "☑️" + "<tr><th>Wine</th><td>" 
+        + "☑️" + "<tr><th>Beer</th><td>" + "☑️" + "<tr><th>Cocktails</th><td>" + "☑️" + "<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.NAME);

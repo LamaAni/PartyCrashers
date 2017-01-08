@@ -36,11 +36,12 @@ Inserter.prototype={
 
 		// get the date.
 		//var baseDate=new Date(ev.Date); // string to date object;
-		var startTime=ev.Time.trim().split(" ");
+		var startTime=ev.Time==null? (new Date()).toString(): ev.Time.trim().split(" ");
 		var endTime=startTime[1];
 		startTime=startTime[0];
 
 		// now add the time to the date.
+		console.log(ev)
 		var startTimestap=new Date(ev.Date+" "+startTime);
 		var endTimestamp=new Date(ev.Date+" "+endTime);
 		if(startTimestap.getTime()>endTimestamp.getTime())
@@ -67,12 +68,12 @@ Inserter.prototype={
 				 TEL: "5551212",
 				 NAME:ev.Name,
 				 Venue:ev.Venue==null?"":ev.Venue.trim(),
-				 ADRESS1:ev.Address.trim(),
+				 ADDRESS1:ev.Address,
 				 CITY: "New York",
 				 ZIP: "10001",
 				 URL: "http:\/\/www.google\.com\/",
-				 START:startTimestap,
-				 END:endTimestamp,
+				 START:startTimestap.getTime()+"" ,
+				 END:endTimestamp.getTime()+"",
 				 AREA:ev.Area,
 				},
 			geometry: {
@@ -92,7 +93,7 @@ Inserter.prototype={
 				me.Ref.push(dbEvent);
 			}
 		}
-		geocoder.google(dbEvent.properties.ADRESS1).then(geojson =>doPush (geojson)); 
+		geocoder.google(dbEvent.properties.ADDRESS1).then(geojson =>doPush (geojson)); 
 		// var key=dbEvent.Name+"_"+dbEvent.Venue+"_"+dbEvent.Start.toString();
 		// dbEvent.key=key;
 		// console.log(key);

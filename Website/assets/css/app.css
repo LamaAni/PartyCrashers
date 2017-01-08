@@ -2,7 +2,6 @@ html, body, #container {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  font-family: Lato-Light;
 }
 body {
   padding-top: 50px;
