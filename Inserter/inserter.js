@@ -48,7 +48,7 @@ Inserter.prototype={
 				 ADRESS1:ev.Address.trim(),
 				 CITY: "New York",
 				 ZIP: "10001",
-				 URL: "http://www.google.com",
+				 URL: "http:\/\/www.google\.com\/",
 				 START:startTimestap,
 				 END:endTimestamp,
 				 AREA:ev.Area
