@@ -11,14 +11,7 @@ Parser.protoype={
 				webaddress=webaddress.substring(4);
 		return require("/Sepcialized/"+webaddress+".js");
 	},
-	ParserBase:function() {
-		return {
-			ParseEvents:function($)
-			{
 
-			}
-		};
-	}
 }
 
 module.exports=Parser;
