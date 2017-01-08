@@ -53,7 +53,7 @@ Inserter.prototype={
 				END:endTimestamp,
 				AREA:ev.Area
 				};
-			"geometry": {
+			geometry: {
 					"type": "Point",
 					"coordinates": [-73.947298, 40.833854]
 				     }
