@@ -42,21 +42,21 @@ Inserter.prototype={
 			type: "Feature",
 			id: "123",
 			properties: {
-				TEL: "5551212"
-				NAME:ev.Name,
-				Venue:ev.Venue==null?"":ev.Venue.trim(),
-				ADRESS1:ev.Address.trim(),
-				CITY: "New York",
-				ZIP: "10001",
-				URL: "http://www.google.com",
-				START:startTimestap,
-				END:endTimestamp,
-				AREA:ev.Area
-				};
+				 TEL: "5551212"
+				 NAME:ev.Name,
+				 Venue:ev.Venue==null?"":ev.Venue.trim(),
+				 ADRESS1:ev.Address.trim(),
+				 CITY: "New York",
+				 ZIP: "10001",
+				 URL: "http://www.google.com",
+				 START:startTimestap,
+				 END:endTimestamp,
+				 AREA:ev.Area
+				},
 			geometry: {
-					"type": "Point",
-					"coordinates": [-73.947298, 40.833854]
-				     }
+				    "type": "Point",
+				     "coordinates": [-73.947298, 40.833854]
+				  }
 			};
 		}
 
