@@ -57,8 +57,8 @@ var collectEvent=function($,query)
 	event.Time=getTimeAndDate(event.values[i]);i=i+1;
 	return event;
 }
-
-var nyartbeatCrawler=new Crawler({
+var nyartbeatCrawler=null;
+nyartbeatCrawler=new Crawler({
 	maxConnections:10,
 	callback:function(error,rslt,$){
 		// code to checkout the result.
@@ -74,28 +74,7 @@ var nyartbeatCrawler=new Crawler({
 			events.push(ev);
 			//console.log(event_boxes[i]);
 		});
-		console.log(events);
-		console.log("found "+events.length+" events");
-		var fname="crawl.json";
-		fs.writeFile(fname,JSON.stringify(events,null,''),function(err){
-			if(err)
-			{
-				console.log("Error while writing to file: ",err);
-			}
-		});
-		console.log("written to file.. "+fname);
-		console.log("Pushing to database..");
-		roll.insert(events,function(err,result){
-			if(err)
-			{
-				console.log("Error commiting to mongodb.");
-			}
-			else
-			{
-				console.log("MongoDB commit result: "+result);
-			}
-
-		});
+		console.log(nyartbeatCrawler);
 	}
 });
 
