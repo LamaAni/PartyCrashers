@@ -45,6 +45,7 @@ wc.CrawlForPages=function(crawler,curIdx,date){
 			{
 				// crawl for pages.
 				console.log("Finished crawling for pages, max index: "+this.LastPageCrawlIdx);
+				this.WebsiteCrawler.CrawlForEventPages(this.Crawler,this.PageCrawlDate,this.LastPageCrawlIdx);
 			}
 			else
 			{
@@ -55,6 +56,54 @@ wc.CrawlForPages=function(crawler,curIdx,date){
 	};
 	console.log("Checking for pages in arthaps.com, idx:"+curIdx+", url:"+crawlURL);
 	crawler.Queue(pageNumberCrawl);
+}
+
+wc.CrawlForEventPages=function(crawler,date,maxIndex){
+	// searches through the directory for event pages.
+	var urls=[];
+	for(var i=0;i<maxIndex;i++)
+	{
+		urls.push({
+			url:this.MakeCrawlPageURL(date,i),//"http://www.nyartbeat.com/list/event_opening",
+			Crawler:crawler,
+			WebsiteCrawler:this,
+			callback : function (error, result, $) {
+
+				// found urls
+				var urlsFound=[];
+				$('[itemprop="name"]').each(function(idx,elm){
+					urlsFound.push("https://www.arthaps.com"+$(elm).attr('href'));
+				});
+
+				this.WebsiteCrawler.CrawlEventPages(this.Crawler,urlsFound);
+		    }
+		});
+	}
+
+	crawler.Queue(urls);
+}
+
+wc.CrawlEventPages=function(crawler,urls)
+{
+	// creating the crawls for the event page.
+	var pageCrawls=[];
+	for(var i=0;i<urls.length;i++)
+	{
+		pageCrawls.push({
+			url:urls[i],
+			Crawler:crawler,
+			WebsiteCrawler:this,
+			callback : function (error, result, $) {
+				this.Crawler.CrawlResult({
+					$:$,
+					Result:result,
+					Error:error,
+					Request:this,
+				});
+		    }
+		});	
+	}
+	crawler.Queue(pageCrawls); 
 }
 
 module.exports=wc;
